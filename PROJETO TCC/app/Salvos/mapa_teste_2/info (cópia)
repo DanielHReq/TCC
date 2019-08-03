@@ -1,0 +1,9 @@
+nome da coletanea: 
+nome do mapa: Mapa1
+data de cricao: 17/02/2019
+pontos{
+200,340;Parede;255,0,0
+200,340;Escada
+320,700:Porta;0,255,255
+}
+data de atualizacao: 26/07/2019

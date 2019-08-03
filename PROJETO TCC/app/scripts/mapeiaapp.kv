@@ -1,0 +1,167 @@
+#:kivy 1.0.9
+
+<Gerenciador>:
+	Menu:
+		name:'telaMenu'
+	CriaMapa:
+        name:'telaConfigMapa'
+    Lista:
+        name:'telaListaMapa'
+
+<Menu>:
+	FloatLayout:
+		BoxLayout:
+			orientation:'vertical'
+			padding:120
+			spacing:25
+			Label:
+				text:'MAPEADOR'
+			Button:
+				text:'Criar um mapa'
+				on_release:app.root.current = 'telaConfigMapa'
+			Button:
+				text:'Listar mapas'
+				on_release:app.root.current = 'telaListaMapa'
+			Button:
+				text:'Sair'
+				on_release:app.stop()
+		Button:
+			text:'Config'
+			size_hint_y:None
+			size_hint_x:None
+			height:40
+			width:40
+			pos:(root.width-40,0)
+
+
+<Lista>
+	FloatLayout:
+		BoxLayout:
+			orientation:'vertical'
+			pos_hint:{'top':0.95}
+			spacing:25
+			Label:
+				size_hint_y:None
+				size:self.texture_size
+				font_size:40
+				text:'Mapas'
+			BoxLayout:
+				orientation:'vertical'
+				size_hint_x:0.8
+				pos_hint:{'x':0.1,'y':0}
+				BoxLayout:
+					size_hint_y:None
+					height:30
+					TextInput:
+						id:pesquisa
+					Button:
+						size_hint_x:0.2
+						text:'Ir'
+						on_release:root.pesquisa_lista()
+					CheckBox:
+						id:cb_mapas
+						active:True
+						size_hint_x:None
+						on_press:root.pesquisa_lista()
+					Label:
+						text:'Mapas'
+						font_size:14
+						size_hint_x:None
+						size:self.texture_size
+					CheckBox:
+						id:cb_coletaneas
+						active:True
+						size_hint_x:None
+						on_press:root.pesquisa_lista()
+					Label:
+						text:'Coletâneas'
+						font_size:14
+						size_hint_x:None
+						size:self.texture_size
+	# INSERIR CHECKBOX (FILTRO)
+				ScrollView:
+					BoxLayout:
+						id:scrollbox
+						orientation:'vertical'
+						size_hint_y:None
+						height:self.minimum_height
+	# MAPAS E COLETÂNEAS ENTRAM AQUI
+		Button:
+			text:'Voltar'
+			size_hint_y:None
+			size_hint_x:None
+			height:40
+			width:40
+			pos:(root.width-40,0)
+			on_release:app.root.current = 'telaMenu'
+
+<ItemLista>:
+	size_hint_y:None
+	height:200
+	Image:
+		id:imagembox
+		size_hint_x:None
+		size:200,200
+	Label:
+		id:listabox
+		font_size:30
+
+<CriaMapa>:
+	FloatLayout:
+		BoxLayout:
+			orientation:'vertical'
+			size_hint_y:0.8
+			pos_hint:{'y':0.15}
+			spacing:25
+			Label:
+				size_hint_y:None
+				size:self.texture_size
+				font_size:40
+				text:'Configurações do Novo Mapa'
+			BoxLayout:
+				orientation:'vertical'
+				size_hint_x:0.8
+				pos_hint:{'x':0.1,'y':0}
+				BoxLayout:
+					size_hint_y:None
+					height:30
+					CheckBox:
+						active:False
+						group:'grupo_criacao'
+					Label:
+						text:'Criar mapa'
+						size:self.texture_size
+				BoxLayout:
+					size_hint_y:None
+					height:30
+					CheckBox:
+						active:False
+						group:'grupo_criacao'
+					Label:
+						text:'Criar mapa e guardá-lo em uma coletânea existente'
+						size:self.texture_size
+				BoxLayout:
+					size_hint_y:None
+					height:30
+					CheckBox:
+						active:False
+						group:'grupo_criacao'
+					Label:
+						text:'Criar mapa e guardá-lo em uma nova coletânea'
+						size:self.texture_size
+				BoxLayout:
+					canvas.before:
+						Color:
+							rgba:.5,.5,.5,1
+						Line:
+							width:2
+							rectangle:self.x,self.y,self.width,self.height
+		Button:
+			text:'Voltar'
+			size_hint_y:None
+			size_hint_x:None
+			height:40
+			width:40
+			pos:(root.width-40,0)
+			on_release:app.root.current = 'telaMenu'
+			
