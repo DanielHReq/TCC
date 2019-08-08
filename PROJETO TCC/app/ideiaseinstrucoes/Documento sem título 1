@@ -1,0 +1,59 @@
+Trilha do Carro - Linha:
+	
+	ideias:
+		
+		Cor com base na temperatura
+		
+		
+
+Paredes - Linha
+
+Pontos Manuais - ?
+
+
+
+
+À esquerda da tela:
+	
+	Botão - marcar ponto aonde o mouse clicou por último
+	
+	Botão - apagar / editar ponto selecionado
+	
+	Botão - salvar foto do mapa
+	
+	Botão - salvar foto da câmera
+	
+	Botão - mescla dos 2 anteriores
+	
+
+Canto inferior esquerdo:
+
+	Coordenadas do último ponto clicado
+	
+	Coordenadas do ponteiro do mouse
+	
+	Temperatura e umidade
+	
+	
+Canto inferior direito:
+
+	Imagem da câmera - clicável, expande a imagem e mostra informações a mais, como FPS
+	
+
+Canto superior direito:
+
+	Alertas:
+	
+		Temperatura alta
+		
+		Mudança drástica de velocidade:
+		
+			Colisão
+			
+			Giroscópio:
+			
+				Terremoto
+				
+
+	
+
