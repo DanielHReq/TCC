@@ -41,9 +41,9 @@ class Mapa(Screen):
         self.ids.imagem.source = 'img.jpg'
         self.ids.imagem.reload()
 
-class MapeandoApp(App):
+class MesclarApp(App):
     def build(self):
         return Gerenciador()
 
 if __name__ == '__main__':
-    MapeandoApp().run()
+    MesclarApp().run()

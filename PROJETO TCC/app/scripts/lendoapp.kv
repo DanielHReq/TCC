@@ -1,0 +1,74 @@
+#:kivy 1.11.0
+
+<Gerenciador>:
+    Mapa:
+        name:'telaMapa'
+
+<Mapa>:
+    clicavel:pin_layout
+    ScatterLayout:
+        auto_bring_to_front:False
+        id:pin_layout
+        Image:
+            source:'../assets/plano-de-fundo.jpg'
+            size:self.texture_size
+            allow_stretch:True
+            keep_ratio:True
+
+    FloatLayout:
+        GridLayout:
+            orientation:'vertical'
+            pos_hint:{'x':0,'center_y':.5}
+            size_hint:(None,None)
+            cols:1
+            col_default_width:50
+            col_force_default:True
+            row_default_height:50
+            row_force_default:True
+            Button:
+                id:btn_add_pin
+                on_press:root.novo_pin()
+                background_color:(.25,.3,1,.3)
+                Image:
+                    source:'../../ink/pin_mais.png'
+                    pos:(self.parent.pos[0]+2/12*self.parent.width,self.parent.pos[1]+1/8*self.parent.height)
+                    size:(self.parent.width*3/4,self.parent.height*3/4)
+                    allow_stretch:True
+            Button:
+                id:unselect
+                on_press:root.unselect()
+                background_color:(.25,.3,1,.3)
+            Button:
+                id:print_cam
+                background_color:(.25,.3,1,.3)
+                Image:
+                    source:'../assets/camera_icon3.png'
+                    pos:self.parent.pos
+                    size:self.parent.size
+                    allow_stretch:True
+
+<Pin>:
+    id:pin_hitbox
+    size_hint:(None,None)
+    size:(15,30)
+    canvas:
+        Rectangle:
+            source:'../../ink/pin_color.png'
+            pos:self.pos
+            size:self.size
+    Image:
+        source:'../../ink/pin.png'
+        allow_stretch:True
+
+<PinInfo>:
+    Label:
+        text:'???'
+
+<Click>:
+    id:ball
+    size_hint:None,None
+    size:(8,8)
+    canvas:
+        Ellipse:
+            pos:self.pos
+            size:self.size

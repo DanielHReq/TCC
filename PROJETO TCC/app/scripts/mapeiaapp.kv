@@ -1,4 +1,4 @@
-#:kivy 1.0.9
+#:kivy 1.11.0
 
 <Gerenciador>:
 	Menu:
@@ -7,16 +7,23 @@
         name:'telaConfigMapa'
     Lista:
         name:'telaListaMapa'
+	Mapa:
+        name:'telaMapa'
 
 <Menu>:
 	FloatLayout:
 		BoxLayout:
 			orientation:'vertical'
-			padding:120
+			padding:120,0,120,100
 			spacing:25
-			Label:
-				text:'MAPEADOR'
+			BoxLayout:
+				size_hint_y:3
+				Image:
+					source:'../assets/logo.png'
+					texture:self.texture
+					allow_stretch:True
 			Button:
+#				background_color:(.8,.8,.8,1)
 				text:'Criar um mapa'
 				on_release:app.root.current = 'telaConfigMapa'
 			Button:
@@ -32,9 +39,9 @@
 			height:40
 			width:40
 			pos:(root.width-40,0)
+			on_release:app.corFundo()
 
-
-<Lista>
+<Lista>:
 	FloatLayout:
 		BoxLayout:
 			orientation:'vertical'
@@ -78,7 +85,6 @@
 						font_size:14
 						size_hint_x:None
 						size:self.texture_size
-	# INSERIR CHECKBOX (FILTRO)
 				ScrollView:
 					BoxLayout:
 						id:scrollbox
@@ -126,36 +132,53 @@
 					size_hint_y:None
 					height:30
 					CheckBox:
+						size_hint_x:.2
 						active:False
 						group:'grupo_criacao'
+						on_press:root.mostra_box(1)
 					Label:
+						halign:'left'
+						text_size:self.size
 						text:'Criar mapa'
 						size:self.texture_size
 				BoxLayout:
 					size_hint_y:None
 					height:30
 					CheckBox:
+						size_hint_x:.2
 						active:False
 						group:'grupo_criacao'
+						on_press:root.mostra_box(2)
 					Label:
+						halign:'left'
+						text_size:self.size
 						text:'Criar mapa e guardá-lo em uma coletânea existente'
 						size:self.texture_size
 				BoxLayout:
 					size_hint_y:None
 					height:30
 					CheckBox:
+						size_hint_x:.2
 						active:False
 						group:'grupo_criacao'
+						on_press:root.mostra_box(3)
 					Label:
+						halign:'left'
+						text_size:self.size
 						text:'Criar mapa e guardá-lo em uma nova coletânea'
 						size:self.texture_size
 				BoxLayout:
-					canvas.before:
-						Color:
-							rgba:.5,.5,.5,1
-						Line:
-							width:2
-							rectangle:self.x,self.y,self.width,self.height
+					padding:[0,10,0,0]
+					ScrollView:
+						BoxLayout:
+							id:box_criacao
+							padding:20
+							canvas.after:
+								Color:
+									rgba:.9,.9,.9,1
+								Line:
+									width:2
+									rectangle:self.x,self.y,self.width,self.height
 		Button:
 			text:'Voltar'
 			size_hint_y:None
@@ -164,4 +187,127 @@
 			width:40
 			pos:(root.width-40,0)
 			on_release:app.root.current = 'telaMenu'
-			
+
+<BoxCriacao>:
+	id:box_criacao2
+	orientation:'vertical'
+	spacing:10
+	
+	
+
+<BoxSpinner>:
+	id:box_spinner
+	size_hint_y:None
+	height:30
+	Label:
+		text:'Procurar coletânia: '
+	Spinner:
+		id:spinner_coletanea
+		text:'sem coletânea'
+
+<BoxNovaCol>:
+	id:box_col
+	size_hint_y:None
+	height:30
+	Label:
+		text:'Nome do Mapa: '
+	TextInput:
+		id:nome_col
+
+<BoxNome>:
+	id:box_nome
+	size_hint_y:None
+	height:30
+	Label:
+		text:'Nome do Mapa: '
+	TextInput:
+		id:nome_mapa
+
+<BoxSVideo>:
+	id:box_video
+	size_hint_y:None
+	Label:
+		text:'Salvar video de todo o percurso: '
+	CheckBox:
+		active:False
+
+
+
+
+
+
+
+<Mapa>:
+    clicavel:pin_layout
+    ScatterLayout:
+        auto_bring_to_front:False
+        id:pin_layout
+        Image:
+			id:image_mapa
+            size:self.texture_size
+            allow_stretch:True
+            keep_ratio:True
+
+    FloatLayout:
+        GridLayout:
+            orientation:'vertical'
+            pos_hint:{'x':0,'center_y':.5}
+            size_hint:(None,None)
+            cols:1
+            col_default_width:50
+            col_force_default:True
+            row_default_height:50
+            row_force_default:True
+            Button:
+                id:btn_add_pin
+                on_press:root.novo_pin()
+                background_color:(.25,.3,1,.3)
+                Image:
+                    source:'../../ink/pin_mais.png'
+                    pos:(self.parent.pos[0]+2/12*self.parent.width,self.parent.pos[1]+1/8*self.parent.height)
+                    size:(self.parent.width*3/4,self.parent.height*3/4)
+                    allow_stretch:True
+            Button:
+                id:unselect
+                on_press:root.unselect()
+                background_color:(.25,.3,1,.3)
+            Button:
+                id:print_cam
+                background_color:(.25,.3,1,.3)
+                Image:
+                    source:'../assets/camera_icon3.png'
+                    pos:self.parent.pos
+                    size:self.parent.size
+                    allow_stretch:True
+		Button:
+			size_hint:(None,None)
+			pos_hint:{'x':0,'y':0}
+			size:(110,40)
+			text:'Salvar e Voltar'
+			on_release:app.root.current = 'telaMenu'
+
+<Pin>:
+    id:pin_hitbox
+    size_hint:(None,None)
+    size:(15,30)
+    canvas:
+        Rectangle:
+            source:'../../ink/pin_color.png'
+            pos:self.pos
+            size:self.size
+    Image:
+        source:'../../ink/pin.png'
+        allow_stretch:True
+
+<PinInfo>:
+    Label:
+        text:'???'
+
+<Click>:
+    id:ball
+    size_hint:None,None
+    size:(8,8)
+    canvas:
+        Ellipse:
+            pos:self.pos
+            size:self.size
